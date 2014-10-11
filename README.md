@@ -46,7 +46,7 @@ vagrantbox$ /vagrant/bin/env.sh start
 vagrantbox$ /vagrant/bin/env.sh state
 ```
 
-Now you can enter your app in your browser by going to [http://192.168.33.10/](http://192.168.33.10/). 
+Now you can enter your app in your browser by going to [http://192.168.33.10](http://192.168.33.10). 
 
 #### 4. Add entry to Mac OSX `hosts` file
 
