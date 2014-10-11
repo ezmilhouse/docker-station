@@ -115,7 +115,7 @@ Go to your browser, enter [http://example.com](http://example.com) - brilliant.
 
 #### 5. Make changes, feel the magic
 
-Finally your app is running in Docker containers, the containers are hosted by a Vagrant box, and your project dir is synced to your local Mac OS X file system.
+Finally your app is running in Docker containers, the containers are hosted on a Vagrant box, and your project dir is synced to your local Mac OS X file system.
 
 Let's start developing and make some changes:
 
