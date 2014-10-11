@@ -9,7 +9,7 @@ I finally got it running. I hope this repo will help you to build your own.
 
 ## Installation
 - Install [Vagrant](https://www.vagrantup.com/downloads.html) - nothing special here.
-- Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) - nothing special here.
+- Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads) - nothing special here.
 
 ## Project
 
@@ -24,6 +24,8 @@ $ git clone git@github.com:ezmilhouse/docker.git example.com
 ```
 $ cd /var/www/projects/example.com
 $ vagrant up app --provision
+
+# Virtualbox Guest Additions demand a reload
 $ vagrant reload
 ```
 
