@@ -35,7 +35,7 @@ $ npm install
 
 #### 2. Go to project dir, create Vagrant box
 ```
-$ 
+$ cd /var/www/projects/example.com
 $ vagrant up app --provision
 
 # Virtualbox Guest Additions demand a reload
