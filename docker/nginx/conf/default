@@ -1,0 +1,118 @@
+# the upstream module is the link between node and nginx, upstream is used for
+# proxying requests to other servers, all requests for / get distributed between
+# any of the servers listed
+upstream example.com {
+
+  # set up multiple Node.js webservers for load balancing, max_fails refers to
+  # number of failed attempts before server is considered inactive, weight
+  # priorities traffic to server. Ex. weight=2 will recieve twice as much traffic
+  # as server with weight=1
+  # IP mentioned here is the upstreams internal IP (and port), by default pointing
+  # to docker IP accessing on node port
+
+    server 192.168.33.10:2000 max_fails=0 fail_timeout=10s weight=1;
+  # server 192.168.33.10:2001 max_fails=0 fail_timeout=10s weight=1;
+  # server 192.168.33.10:2002 max_fails=0 fail_timeout=10s weight=1;
+  # server 192.168.33.10:2003 max_fails=0 fail_timeout=10s weight=1;
+
+  # send visitors back to the same server each time
+  ip_hash;
+
+  # enable number of keep-alive connections
+  keepalive 512;
+
+}
+
+server {
+
+    listen 80;
+    listen [::]:80 default_server ipv6only=on;
+
+    # index files
+    index index.html;
+
+    # domain names, make sure to set the A Record on your domain's DNS settings to
+    # your server's IP address, you can test if was set properly by using the `dig`
+    # command: dig example.com
+    server_name example.com example;
+
+    # timeout for closing keep-alive connections
+    keepalive_timeout 10;
+
+    # turn off sendfile in vagrant environments
+    sendfile off;
+
+    # enable gzip compression
+    gzip on;
+    gzip_http_version 1.1;
+    gzip_vary on;
+    gzip_comp_level 6;
+    gzip_proxied any;
+    gzip_buffers 16 8k;
+    gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+
+    # max upload size
+    # client_max_body_size 16M;
+
+    # change access and error log files.
+    access_log /var/log/nginx/access.log;
+    error_log  /var/log/nginx/error.log;
+
+    # custom error page.
+    # error_page 404 maintenance.html;
+    # error_page 500 502 503 504 maintenance.html;
+
+    # location /maintenance.html {
+    #     root /var/www/htdocs/public/maintenance;
+    # }
+
+    location / {
+
+        # set this to your upstream module.
+        proxy_pass http://example.com;
+
+        # headers to pass to proxy server
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_cache_bypass $http_upgrade;
+        proxy_http_version 1.1;
+        proxy_redirect off;
+
+        # go to next upstream after if server down
+        proxy_next_upstream error timeout http_500 http_502 http_503 http_504;
+        proxy_connect_timeout 5s;
+
+        # gateway timeout
+        proxy_read_timeout 20s;
+        proxy_send_timeout 20s;
+
+        # buffer settings
+        proxy_buffers 8 32k;
+        proxy_buffer_size 64k;
+
+    }
+
+    # enable caching of static files.
+    location ~* \.(css|js|gif|jpg|png|ico)$ {
+        expires modified 365d;
+    }
+
+    # do not expose favicon errors
+    location = /favicon.ico {
+        log_not_found off;
+        access_log off;
+    }
+
+    # serve static files without going through upstreams
+    location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {
+        root /var/www/project-nginx/htdocs/public;
+        access_log off;
+        expires 1h;
+    }
+
+}

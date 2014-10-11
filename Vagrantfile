@@ -1,22 +1,33 @@
-Vagrant.configure("2") do |config|
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
-  config.vm.define "app" do |m|
+VAGRANTFILE_API_VERSION = "2"
 
-    # set up basic box image
-    m.vm.box = "ubuntu/trusty64"
+ENV['VAGRANT_DEFAULT_PROVIDER'] ||= 'docker'
 
-    # set host name
-    m.vm.hostname = "example.com"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    # set private network, machine will use this ip
-    m.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.define "node" do |app|
+    app.vm.provider "docker" do |d|
+      d.build_dir  = "./docker/node"
+      d.name = 'node'
+      d.ports = ['2000:2000']
+      #d.vagrant_vagrantfile = "./Vagrantfile.proxy"
+    end
+    app.vm.synced_folder "./project/", "/opt/project/"
+  end
 
-    # provision docker environment
-    m.vm.provision "docker"
-
-    # provision docker base image
-    m.vm.provision "shell", path: "./bin/vagrant.provision.sh"
-
+  config.vm.define "nginx" do |nginx|
+    nginx.vm.provider "docker" do |d|
+      d.build_dir  = "./docker/nginx"
+      d.name = 'nginx'
+      #d.vagrant_vagrantfile = "./Vagrantfile.proxy"
+      d.link('node:node')
+      d.ports = ['80:80']
+    end
+    nginx.vm.synced_folder "./project/", "/var/www/"
+    nginx.vm.synced_folder "./logs/", "/var/www/"
   end
 
 end
+
