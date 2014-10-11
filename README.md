@@ -15,13 +15,13 @@ I finally got it running. I hope this repo will help you to build your own.
 
 #### 1. Checkout this repo
 
-```js
+```
 $ mkdir -p /var/www/projects
 $ git clone git@github.com:ezmilhouse/docker.git example.com
 ```
 
 #### 2. Go to project dir, create Vagrant box
-```js
+```
 $ cd /var/www/projects/example.com
 $ vagrant up app --provision
 $ vagrant reload
@@ -31,12 +31,12 @@ This will take a few minutes, as this is the initial `vagrant up` and therefore 
 
 #### 3. Start Docker containers for NGINX and Node.js
 
-```js
+```
 # ssh into your box
 $ vagrant ssh app
 ```
 
-```js
+```
 # on the box, start containers
 vagrantbox$ /vagrant/bin/env.sh start
 
@@ -48,7 +48,7 @@ Now you can enter your app in your browser by going to [http://192.168.33.10/](h
 
 #### 4. Add entry to Mac OSX `hosts` file
 
-```js
+```
 # if you're still on the box, leave it for now
 vagrantbox$ exit
 
@@ -58,12 +58,12 @@ $ sudo nano /etc/hosts
 
 Add line:
 
-```js
+```
 192.168.33.10    example.com
 ```
 
 Save and flush host cache:
-```js
+```
 $ dscacheutil -flushcache; sudo killall -HUP mDNSResponder
 ```
 
