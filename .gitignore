@@ -41,6 +41,8 @@ Thumbs.db
 atlassian-ide-plugin.xml
 *.sublime-project
 .vagrant
+*.swo
+*.swp
 
 # NODE
 ###############################################################################
