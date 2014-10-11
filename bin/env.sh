@@ -44,12 +44,15 @@ case "$1" in
 				;;
 		esac
 	;;
-	state)
-		docker ps --no-trunc=false
-	;;
-	start)
+	clean)
 		echo '==> Removing exited containers ...'
 		docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm -f > /dev/null
+	;;
+	state)
+		docker ps -a --no-trunc=false
+	;;
+	start)
+		e clean
 		echo '==> Starting ...'
 		echo '==> docker: ---> container: '${NGINX_CONTAINER_NAME}
 		docker run -d -p ${NGINX_CONTAINER_PORT}:${NGINX_CONTAINER_PORT} --name=nginx -v /vagrant/var/www:/var/www -v /vagrant/var/log/nginx:/var/log/nginx local/nginx > /dev/null
@@ -68,8 +71,8 @@ case "$1" in
 		echo '==> ok!'
 		;;
 	restart)
-		/vagrant/bin/env.sh stop
-		/vagrant/bin/env.sh start
+		e stop
+		e start
 		;;
 	*)
 		echo 'Try start, stop or restart'

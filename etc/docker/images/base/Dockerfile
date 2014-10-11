@@ -18,3 +18,7 @@ RUN apt-get install -y \
     nano \
     python-software-properties \
     software-properties-common
+
+# adding .bash_profile
+ADD ./conf/.bash_profile ~/.bash_profile
+RUN . ~/.bash_profile
