@@ -7,10 +7,15 @@ I finally got it running. I hope this repo will help you to build your own.
 
 ... with the setup, you'll have a running NGINX/Node.js sample application, all in Docker containers on a Vagrant host, you can access your app in the Browser by going to `http://example.com`.
 
+Your project directory will be mounted into Vagrant, so you can develop locally and your changes are automatically available in the respective Docker containers. 
+
+The Node.js app itself is run by `nodemon`, so the Node.js process will be restarted automatically once `nodemon` detects changes.
+
 ## Installation
-- Install [Vagrant](https://www.vagrantup.com/downloads.html) - nothing special here.
-- Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads) - nothing special here.
-- Install [Node.js & NPM](http://nodejs.org/download/) - nothing special here.
+I assume that [Node.js & NPM](http://nodejs.org/download/) are already installed on your system - so let'S get ready for Vagrant.
+
+- install [Vagrant](https://www.vagrantup.com/downloads.html)
+- install [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 
 ## Project
 
@@ -108,5 +113,16 @@ $ dscacheutil -flushcache; sudo killall -HUP mDNSResponder
 
 Go to your browser, enter [http://example.com](http://example.com) - brilliant.
 
+#### 5. Make changes, feel the magic
+
+Finally you're app is running in Docker containers, those, are hosted by a Vagrant box, and your project dir is synced to your local Mac OS file system.
+
+Let's make some changes ...
+
+- open the `index.js` in your app's working dir: `/var/www/projects/example.com/var/www`
+- change the `res.send('Hello World!');` into `res.send('Hello Planet!');`
+- refresh browser at `http://example.com`
+
+Have fun!
 
 
