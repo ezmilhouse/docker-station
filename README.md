@@ -31,6 +31,16 @@ $ vagrant reload
 
 This will take a few minutes, as this is the initial `vagrant up` and therefore the first provisioning of your box.
 
+##### What is happening here?`
+> The `Vagrantfile` let's you define the network for your Vagrant box, so the IP we're using in the following steps is set here - change it if you like.  
+
+> Vagrant will check the `Vagrantfile` form this repo's root directory to create a Vagrant box. Take a look at the file - the box will be provisioned for the use with Docker and afterwards a bootstrapping provision script `./bin/vagrant.provision.sh` is called. That script is initiating the building of 3 Docker images: 
+- a basic Ubuntu image
+- one for Node.js
+- one for NGINX  
+
+> The Docker images are defined by `Dockerfile(s)`, take a look at them in `/etc/docker/images` - make changes as you like.
+
 #### 3. Start Docker containers for NGINX and Node.js
 
 ```
