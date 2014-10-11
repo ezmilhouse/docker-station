@@ -40,7 +40,6 @@ Thumbs.db
 *.iml
 atlassian-ide-plugin.xml
 *.sublime-project
-.vagrant
 
 # NODE
 ###############################################################################
@@ -50,3 +49,5 @@ npm-debug.log
 # FROG
 ###############################################################################
 config.local.js
+log
+.vagrant

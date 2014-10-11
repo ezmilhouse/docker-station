@@ -48,19 +48,23 @@ case "$1" in
 		docker ps --no-trunc=false
 	;;
 	start)
+		echo '==> Removing exited containers ...'
+		docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm -f > /dev/null
 		echo '==> Starting ...'
 		echo '==> docker: ---> container: '${NGINX_CONTAINER_NAME}
 		docker run -d -p ${NGINX_CONTAINER_PORT}:${NGINX_CONTAINER_PORT} --name=nginx -v /vagrant/var/www:/var/www -v /vagrant/var/log/nginx:/var/log/nginx local/nginx > /dev/null
 		echo '==> docker: ---> container: '${NODE_CONTAINER_NAME}
 		docker run -d -p ${NODE_CONTAINER_PORT}:${NODE_CONTAINER_PORT}  --name=node -v /vagrant/var/www:/var/www -v /vagrant/var/log/node:/var/log/node local/node > /dev/null
 		echo '==> ok!'
+		echo ''
+		docker ps -a
+		echo ''
+		/vagrant/bin/env.sh log
 		;;
 	stop)
+		echo ''
 		echo '==> Stopping ...'
-		echo '==> docker: ---> container: '${NGINX_CONTAINER_NAME}
-		docker rm -f nginx > /dev/null
-		echo '==> docker: ---> container: '${NODE_CONTAINER_NAME}
-		docker rm -f node > /dev/null
+		docker stop $(docker ps -a -q) > /dev/null
 		echo '==> ok!'
 		;;
 	restart)
