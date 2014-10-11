@@ -12,7 +12,7 @@ Your project directory will be mounted into Vagrant, so you can develop locally 
 The Node.js app itself is run by `nodemon`, so the Node.js process will be restarted automatically once `nodemon` detects changes.
 
 ## Installation
-I assume that [Node.js & NPM](http://nodejs.org/download/) are already installed on your system - so let'S get ready for Vagrant.
+I assume that [Node.js & NPM](http://nodejs.org/download/) are already installed on your system - so let's get ready for Vagrant.
 
 - install [Vagrant](https://www.vagrantup.com/downloads.html)
 - install [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
