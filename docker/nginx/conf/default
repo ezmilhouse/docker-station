@@ -10,7 +10,7 @@ upstream example.com {
   # IP mentioned here is the upstreams internal IP (and port), by default pointing
   # to docker IP accessing on node port
 
-    server 192.168.33.10:2000 max_fails=0 fail_timeout=10s weight=1;
+    server node:2000 max_fails=0 fail_timeout=10s weight=1;
   # server 192.168.33.10:2001 max_fails=0 fail_timeout=10s weight=1;
   # server 192.168.33.10:2002 max_fails=0 fail_timeout=10s weight=1;
   # server 192.168.33.10:2003 max_fails=0 fail_timeout=10s weight=1;
