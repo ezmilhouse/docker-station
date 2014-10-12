@@ -24,6 +24,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       d.vagrant_vagrantfile = "./Vagrantfile.proxy"
       d.link('node:node')
       d.ports = ['80:80']
+      # uncomment those lines if you want to attach to container
+      #d.cmd = ['/bin/bash', '-l']
+      #d.create_args = ['-i', '-t']
+      #d.remains_running = false
     end
     nginx.vm.synced_folder "./project/", "/var/www/"
     nginx.vm.synced_folder "./logs/", "/var/www/"
