@@ -1,5 +1,10 @@
 #!/bin/sh
 case "$1" in
+	init)
+		cd var/www && npm install
+		vagrant up app --provision
+		vagrant reload app
+		;;
 	*)
 		cp /vagrant/etc/docker/images/base/conf/.bash_profile ~/.bash_profile > /dev/null
 		. ~/.bash_profile > /dev/null
