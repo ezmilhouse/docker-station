@@ -1,3 +1,8 @@
+Docker Station
+======
+Boilerplate for a (local) development environment running [NGINX](http://nginx.org/), [Node.js](http://nodejs.org/) applications in [Docker](https://www.docker.com/) containers hosted on [Vagrant](https://www.vagrantup.com/) VM boxes on Mac OS X.
+
+
 ## Intro
 I had a pretty hard time to setup a development environment for my Node.js applications, locally on Mac OSX, using Vagrant and Docker. 
 
@@ -23,7 +28,7 @@ I assume that [Node.js & NPM](http://nodejs.org/download/) are already installed
 
 ```
 $ mkdir -p /var/www/projects
-$ git clone git@github.com:ezmilhouse/docker.git example.com
+$ git clone git@github.com:ezmilhouse/docker-station.git example.com
 ```
 
 This repo contains a sample app that needs some `NPM` love:
@@ -63,31 +68,31 @@ $ vagrant ssh app
 
 ```
 # on the box, start containers
-vagrantbox$ /vagrant/bin/env.sh start
+vagrantbox$ ds start
 
 # see them running
-vagrantbox$ /vagrant/bin/env.sh state
+vagrantbox$ ds state
 ```
 
 Now you can enter your app in your browser by going to [http://192.168.33.10](http://192.168.33.10). 
 
 ##### What is happening here?
-> Docker is installed on your Vagrant box so you can use Docker the way you're used to it (via it's CLI) when you're connected to the box via `vagrant ssh` - ex: you can run `$ docker ps -a` on the box - just to make your life easier there is a little management script in `/bin/env.sh` that provides some handy shortcuts to start, stop or restart your Docker containers on the box.
+> Docker is installed on your Vagrant box so you can use Docker the way you're used to it (via it's CLI) when you're connected to the box via `vagrant ssh` - ex: you can run `$ docker ps -a` on the box - just to make your life easier there is a little management script in `/bin/docker.station.sh` that provides some handy shortcuts to start, stop or restart your Docker containers on the box.
 ```
 # start all containers
-$ /vagrant/bin/env.sh start
+$ ds start
 
 > # stop all containers
-$ /vagrant/bin/env.sh stop 
+$ ds stop 
 
 > # restart all containers
-$ /vagrant/bin/env.sh restart 
+$ ds restart 
 
 > # show STDOUT of container
-$ /vagrant/bin/env.sh log [CONTAINER]
+$ ds log [CONTAINER]
 
 > # show list of running containers
-$ /vagrant/bin/env.sh state 
+$ ds state 
 ```
 
 #### 4. Add entry to Mac OS X `hosts` file
