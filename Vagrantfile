@@ -16,6 +16,7 @@ Vagrant.configure("2") do |config|
 
     # provision docker base image
     m.vm.provision "shell", path: "./bin/vagrant.provision.sh"
+    m.vm.provision "shell", path: "./bin/vagrant.sh"
 
   end
 

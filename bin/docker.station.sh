@@ -52,7 +52,7 @@ case "$1" in
 		docker ps -a --no-trunc=false
 	;;
 	start)
-		e clean
+		/vagrant/bin/docker.station.sh clean
 		echo '==> Starting ...'
 		echo '==> docker: ---> container: '${NGINX_CONTAINER_NAME}
 		docker run -d -p ${NGINX_CONTAINER_PORT}:${NGINX_CONTAINER_PORT} --name=nginx -v /vagrant/var/www:/var/www -v /vagrant/var/log/nginx:/var/log/nginx local/nginx > /dev/null
@@ -62,7 +62,7 @@ case "$1" in
 		echo ''
 		docker ps -a
 		echo ''
-		/vagrant/bin/env.sh log
+		/vagrant/bin/docker.station.sh log
 		;;
 	stop)
 		echo ''
@@ -71,8 +71,8 @@ case "$1" in
 		echo '==> ok!'
 		;;
 	restart)
-		e stop
-		e start
+		/vagrant/bin/docker.station.sh stop
+		/vagrant/bin/docker.station.sh start
 		;;
 	*)
 		echo 'Try start, stop or restart'
