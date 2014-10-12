@@ -6,8 +6,7 @@ case "$1" in
 		vagrant reload app
 		;;
 	*)
-		cp /vagrant/etc/docker/images/base/conf/.bash_profile ~/.bash_profile > /dev/null
-		. ~/.bash_profile > /dev/null
+		cp /vagrant/etc/docker/images/base/conf/.bash_profile ~/.bash_profile && . ~/.bash_profile
 		echo "ok!"
 		echo "Now SSH into your Vagrant box and start Docker Station:"
 		echo "==> $ vagrant ssh"
