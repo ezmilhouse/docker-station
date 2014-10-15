@@ -1,6 +1,87 @@
 Docker Station
 ======
-Boilerplate for a (local) development environment running [NGINX](http://nginx.org/), [Node.js](http://nodejs.org/) applications in [Docker](https://www.docker.com/) containers hosted on [Vagrant](https://www.vagrantup.com/) VM boxes on Mac OS X.
+The `Docker Station` is a boilerplate project to create a local development environment for running [Node.js](http://nodejs.org/) applications under [nginx](http://nginx.org/) in [Docker](https://www.docker.com/) containers - all hosted on [Vagrant](https://www.vagrantup.com/) virtual machines, therefore ready-to-use on Mac OS X.
+
+## Dependencies
+Please make sure you have the following prerequisites installed:
+
+- [Node.js & NPM](http://nodejs.org/download/)
+- [Vagrant](https://www.vagrantup.com/downloads.html)
+- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+
+## Quickstart
+
+#### 1. Create Project
+```
+# checkout ds
+$ git clone git@github.com:ezmilhouse/docker-station.git tmp
+```
+
+```
+# create ds project
+$ ./bin/ds.sh -n app -p /path/to/project -r user/repo -i 192.168.33.10 -p 2000
+```
+Now open your browser and see your app running at: [http://192.168.33.10](http://192.168.33.10)
+
+#### 2. Create Host Entry
+Add a new host entry to your `/etc/hosts` file:
+
+```
+# add host entry
+$ sudo /etc/hosts >> 192.168.33.10 example.com
+
+# flush host cache
+$ dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+```
+Now open your browser and see your app running at [http://example.com](http://example.com)
+
+##  Project Directory Layout
+After checking out `Docker Station` and running `./bin/ds.sh` to [initiate]() your project - it will have following directory layout. 
+
+#### /bin
+```
+# shell scripts to provision and manage your box
+# and docker containers
+
+├── bin  
+│   └── ds.sh
+│   └── ds.provision.sh
+```
+
+#### /etc
+```
+# all the docker images supported at this pointn in
+# time, more images will be added 
+
+├── etc  
+│   └── docker
+│   │   └── images
+│   │   │   └── base
+│   │   │   │   │ Dockerfile
+│   │   │   └── mongo
+│   │   │   │   └── conf
+│   │   │   │   │ Dockerfile
+│   │   │   └── ...
+```   
+
+#### /var
+```
+# holds all Vagrant mounted directories and Docker 
+# Volumes, it's the persistent layer of your dev 
+# environment
+
+├── var  
+│   └── data
+│   │   └── mongo
+│   │   └── ...
+│   └── log
+│   │   └── mongo
+│   │   └── ...
+│   └── www
+│   │   └── [YOUR_APPLICATION_FILES]
+```
+
+
 
 
 ## Intro

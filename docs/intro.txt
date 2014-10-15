@@ -1,0 +1,3 @@
+
+# provision vagrant box, build docker images, start docker containers
+$ ds -v new

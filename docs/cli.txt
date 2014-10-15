@@ -1,0 +1,131 @@
+# ds
+
+Usage: ds [options] <command> [<args>]
+
+Shortcuts:
+
+down    | SHORTCUT: -> ds -p alias
+        | Send Vagrant box to sleep.
+
+init    | SHORTCUT: -> ds -v new [-f]
+        | Provision Vagrant box initially, -f forces destroy first.
+
+project | SHORTCUT: -> ds -p new PATH [REPOSITORY]
+
+this    | SHORTCUT: -> ds -v sleep
+        | Sets Docker Station alias to current location.
+
+up      | SHORTCUT: -> ds -v wake
+        | Wakes up halted, suspended Vagrant box.
+
+Context:
+
+-d      | commands in context of Docker containers, images
+-p      | commands in context of project folders, files
+-v      | commands in context of Vagrant boxes
+
+Commands:
+
+-d      | build
+        | USAGE: ds -d build <IMAGE> <TAG>
+        | Builds image from specific Docker IMAGE (Dockerfile), tagged with TAG, TAG will be prefixed with local/ namespace.
+        |
+        | build-all
+        | USAGE: ds -d build-all
+        | Builds a preset of Docker images.
+        |
+        | clean
+        | USAGE: ds -d clean [-c] [-i]
+        | Tries to clean up Docker artefacts, removes untagged images (-i), removes exited containers [-c], might fail sometimes, known Docker issue
+        |
+        | log
+        | USAGE: ds -d log CONTAINER
+        | Shows logs of specific Docker CONATINER (in tail -f style)
+        |
+        | list
+        | USAGE: ds -d list [-c] [-i]
+        | Lists all available Docker images [-i], containers [-c]
+        |
+        | kill
+        | USAGE: ds -d kill
+        | Removes all containers, all data will be lost, also removes all Docker images, you need to rebuild them afterwards, handle with care.
+        |
+        | new
+        | USAGE: ds -d new TAG NAME
+        | Creates new Docker container based on Docker Image TAG, sets container NAME
+        |
+        | remove
+        | USAGE: ds -d remove CONTAINER
+        | Removes Docker container CONTAINER, running or not.
+        |
+        | remove-all
+        | USAGE: ds -d remove-all
+        | Removes all Docker containers, running or not.
+        |
+        | restart
+        | USAGE: ds -d restart CONTAINER
+        | Restarts running Docker container CONTAINER.
+        |
+        | restart-all
+        | USAGE: ds -d restart-all
+        | Restarts all running Docker containers.
+        |
+        | start
+        | USAGE: ds -d start CONTAINER
+        | Starts stopped Docker container CONTAINER.
+        |
+        | start-all
+        | USAGE: ds -d start CONTAINER
+        | Starts all stopped Docker containers.
+        |
+        | stop
+        | USAGE: ds -d stop CONTAINER
+        | Stops running Docker container CONTAINER.
+        |
+        | stop-all
+        | USAGE: ds -d stop-all
+        | Starts all stopped Docker containers.
+
+
+
+-p      | alias
+        | USAGE: ds -p alias
+        | Sets global ds alias (in .bash_profile) to current ./bin/ds.sh shell script
+        |
+        | new
+        | USAGE: ds -p new PATH [REPOSITORY]
+        | Creates new Docker Station project in PATH, copies all files, checks out application REPOSITORY (optional, checks out example application if not set)
+
+
+
+-v      | -provision
+        | -provision-bash
+        | -provision-docker
+        |
+        | bash
+        | USAGE: ds -v bash
+        | Copies /etc/docker/.../.bash_profile from host to Vagrant box, setting aliases, you have to source new bash profile manually afterwards with $ . ./.bash_profile
+        |
+        | kill
+        | USAGE: ds -v kill
+        | Destroys Vagrant box and everything on (calls v -d kill on all Docker elements before) it, handle with care.
+        |
+        | new
+        | USAGE: ds -v new [-f]
+        | Provisions a new/existing Vagrant box, including all Docker images, containers, based on Vagrantfile and config.yaml. Use optional flag -f to kill box first.
+        |
+        | reload
+        | USAGE: ds -v reload
+        | Reloads existing Vagrant box, booting it up again
+        |
+        | sleep
+        | USAGE: ds -v sleep
+        | The other half of $ ds -v wake, Stops all Docker containers, then suspends (RAM snapshot) Vagrant box. Best way to end the day.
+        |
+        | ssh
+        | USAGE: ds -v ssh
+        | SSH into vagrant box, no native -c flag.
+        |
+        | wake
+        | USAGE: ds -v wake
+        | The other half of $ ds -v sleep, ups vagrant box, starts containers.

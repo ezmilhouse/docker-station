@@ -1,0 +1,4 @@
+VAGRANT_HOST_IP      : '192.168.33.10'
+VAGRANT_HOST_NAME    : 'example.com'
+VAGRANT_BOX_NAME     : 'app'
+VAGRANT_BASH_PROFILE : './etc/docker/images/base/conf/.bash_profile'

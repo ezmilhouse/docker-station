@@ -2,5 +2,5 @@
 alias d=docker
 
 # docker: environment
-alias dockerstation=/vagrant/bin/docker.station.sh
-alias ds=/vagrant/bin/docker.station.sh
+alias dockerstation=/vagrant/bin/ds.sh
+alias ds=/vagrant/bin/ds.sh
