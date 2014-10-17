@@ -1112,6 +1112,8 @@ case "$1" in
         echo '        | Shows a list of all vagrant boxes in the local system.'
         echo '        | '
         echo 'new     | SHORTCUT: -> ds -p new PATH [REPOSITORY]'
+        echo '        | Creates new Docker Station project in PATH, clones set'
+        echo '        | git repository'
         echo '        |'
         echo 'up      | SHORTCUT: -> ds -v wake'
         echo '        | Wakes up halted, suspended Vagrant box.'
