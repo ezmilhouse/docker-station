@@ -59,8 +59,8 @@ case "$1" in
         $0 -v new $1
     ;;
 
-    # $ ds project
-    project)
+    # $ ds new
+    new)
         $0 -p new $1 $2
     ;;
 
@@ -976,12 +976,17 @@ case "$1" in
                 esac
 
                 # provisioning box
+                ds_newlne
                 $0 -v -provision
+                ds_newlne
 
                 # reloading box
+                ds_newlne
                 $0 -v -reload
+                ds_newlne
 
                 # building docker images
+                ds_newlne
                 $0 -v -provision-docker
 
                 # exit
