@@ -64,8 +64,8 @@ case "$1" in
         $0 -p new $1 $2
     ;;
 
-    # $ ds this
-    this)
+    # $ ds alias
+    alias)
         $0 -p alias
     ;;
 
@@ -730,6 +730,7 @@ case "$1" in
                 ds_alias_set
 
                 # exit
+                ds_newlne
                 ds_stdout "» OK"
                 ds_stdout "» Alias set successfully, pointing to: ${CURRENT_LOCATION}"
                 ds_stdout "» Please refresh your shell to use new set alias:"
@@ -939,6 +940,18 @@ case "$1" in
 
             ;;
 
+            # ds -v list
+            ###
+            # Lists all vagrant boxes on your system, all of them
+            ###
+            list)
+
+                ds_newlne
+                vagrant global-status --prune
+                ds_newlne
+
+            ;;
+
             # $ ds -v new [-f]
             ###
             # TODO:
@@ -1075,16 +1088,17 @@ case "$1" in
         echo ''
         echo 'Shortcuts:'
         echo ''
+        echo 'alias   | SHORTCUT: -> ds -p alias'
+        echo '        | Sets Docker Station alias to current location.'
+        echo ''
         echo 'down    | SHORTCUT: -> ds -p alias'
         echo '        | Send Vagrant box to sleep.'
         echo ''
         echo 'init    | SHORTCUT: -> ds -v new [-f]'
-        echo '        | Provision Vagrant box initially, -f forces destroy first.'
+        echo '        | Provision Vagrant box initially, -f forces destroy'
+        echo '        | first.'
         echo ''
         echo 'project | SHORTCUT: -> ds -p new PATH [REPOSITORY]'
-        echo ''
-        echo 'this    | SHORTCUT: -> ds -v sleep'
-        echo '        | Sets Docker Station alias to current location.'
         echo ''
         echo 'up      | SHORTCUT: -> ds -v wake'
         echo '        | Wakes up halted, suspended Vagrant box.'
@@ -1099,7 +1113,8 @@ case "$1" in
         echo ''
         echo '-d      | build'
         echo '        | USAGE: ds -d build <IMAGE> <TAG>'
-        echo '        | Builds image from specific Docker IMAGE (Dockerfile), tagged with TAG, TAG will be prefixed with local/ namespace.'
+        echo '        | Builds image from specific Docker IMAGE (Dockerfile),'
+        echo '        | tagged with TAG, TAG will be prefixed with local/ namespace.'
         echo '        |'
         echo '        | build-all'
         echo '        | USAGE: ds -d build-all'
@@ -1107,7 +1122,9 @@ case "$1" in
         echo '        |'
         echo '        | clean'
         echo '        | USAGE: ds -d clean [-c] [-i]'
-        echo '        | Tries to clean up Docker artefacts, removes untagged images (-i), removes exited containers [-c], might fail sometimes, known Docker issue'
+        echo '        | Tries to clean up Docker artefacts, removes untagged images'
+        echo '        | (-i), removes exited containers [-c], might fail sometimes,'
+        echo '        | known Docker issue'
         echo '        |'
         echo '        | log'
         echo '        | USAGE: ds -d log CONTAINER'
@@ -1119,11 +1136,14 @@ case "$1" in
         echo '        |'
         echo '        | kill'
         echo '        | USAGE: ds -d kill'
-        echo '        | Removes all containers, all data will be lost, also removes all Docker images, you need to rebuild them afterwards, handle with care.'
+        echo '        | Removes all containers, all data will be lost, also removes all'
+        echo '        | Docker images, you need to rebuild them afterwards, handle with'
+        echo '        | care.'
         echo '        |'
         echo '        | new'
         echo '        | USAGE: ds -d new TAG NAME'
-        echo '        | Creates new Docker container based on Docker Image TAG, sets container NAME'
+        echo '        | Creates new Docker container based on Docker Image TAG, sets'
+        echo '        | container NAME'
         echo '        |'
         echo '        | remove'
         echo '        | USAGE: ds -d remove CONTAINER'
@@ -1165,7 +1185,8 @@ case "$1" in
         echo '        |'
         echo '        | new'
         echo '        | USAGE: ds -p new PATH [REPOSITORY]'
-        echo '        | Creates new Docker Station project in PATH, copies all files, checks out application REPOSITORY (optional, checks out example application if not set)'
+        echo '        | Creates new Docker Station project in PATH, copies all files, checks out'
+        echo '        | application REPOSITORY (optional, checks out example application if not set)'
         echo ''
         echo ''
         echo ''
@@ -1175,15 +1196,20 @@ case "$1" in
         echo '        |'
         echo '        | bash'
         echo '        | USAGE: ds -v bash'
-        echo '        | Copies /etc/docker/.../.bash_profile from host to Vagrant box, setting aliases, you have to source new bash profile manually afterwards with $ . ./.bash_profile'
+        echo '        | Copies /etc/docker/.../.bash_profile from host to Vagrant box, setting'
+        echo '        | aliases, you have to source new bash profile manually afterwards with'
+        echo '        | $ . ./.bash_profile'
         echo '        |'
         echo '        | kill'
         echo '        | USAGE: ds -v kill'
-        echo '        | Destroys Vagrant box and everything on (calls v -d kill on all Docker elements before) it, handle with care.'
+        echo '        | Destroys Vagrant box and everything on (calls v -d kill on all Docker'
+        echo '        | elements before) it, handle with care.'
         echo '        |'
         echo '        | new'
         echo '        | USAGE: ds -v new [-f]'
-        echo '        | Provisions a new/existing Vagrant box, including all Docker images, containers, based on Vagrantfile and config.yaml. Use optional flag -f to kill box first.'
+        echo '        | Provisions a new/existing Vagrant box, including all Docker images,'
+        echo '        | containers, based on Vagrantfile and config.yaml. Use optional flag -f'
+        echo '        | to kill box first.'
         echo '        |'
         echo '        | reload'
         echo '        | USAGE: ds -v reload'
@@ -1191,7 +1217,8 @@ case "$1" in
         echo '        |'
         echo '        | sleep'
         echo '        | USAGE: ds -v sleep'
-        echo '        | The other half of $ ds -v wake, Stops all Docker containers, then suspends (RAM snapshot) Vagrant box. Best way to end the day.'
+        echo '        | The other half of $ ds -v wake, Stops all Docker containers, then suspends'
+        echo '        | (RAM snapshot) Vagrant box. Best way to end the day.'
         echo '        |'
         echo '        | ssh'
         echo '        | USAGE: ds -v ssh'
@@ -1200,6 +1227,7 @@ case "$1" in
         echo '        | wake'
         echo '        | USAGE: ds -v wake'
         echo '        | The other half of $ ds -v sleep, ups vagrant box, starts containers.'
+        echo ''
 
     ;;
 
