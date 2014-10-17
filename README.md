@@ -33,7 +33,7 @@ Open `config.yaml`, edit project configuration as you please.
 
 ```
 VAGRANT_HOST_IP      : '192.168.33.10'
-VAGRANT_HOST_NAME    : 'app.com'
+VAGRANT_HOST_NAME    : 'test.com'
 VAGRANT_BOX_NAME     : 'app'
 VAGRANT_BASH_PROFILE : './etc/docker/images/base/conf/.bash_profile'
 ```
