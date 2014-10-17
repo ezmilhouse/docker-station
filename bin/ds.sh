@@ -59,6 +59,11 @@ case "$1" in
         $0 -v new $1
     ;;
 
+    # $ ds list
+    list)
+        $0 -v list
+    ;;
+
     # $ ds new
     new)
         $0 -p new $1 $2
@@ -1095,16 +1100,19 @@ case "$1" in
         echo ''
         echo 'alias   | SHORTCUT: -> ds -p alias'
         echo '        | Sets Docker Station alias to current location.'
-        echo ''
+        echo '        |'
         echo 'down    | SHORTCUT: -> ds -p alias'
         echo '        | Send Vagrant box to sleep.'
-        echo ''
+        echo ''       |
         echo 'init    | SHORTCUT: -> ds -v new [-f]'
         echo '        | Provision Vagrant box initially, -f forces destroy'
         echo '        | first.'
-        echo ''
-        echo 'project | SHORTCUT: -> ds -p new PATH [REPOSITORY]'
-        echo ''
+        echo '        | '
+        echo 'list    | SHORTCUT: -> ds -v list'
+        echo '        | Shows a list of all vagrant boxes in the local system.'
+        echo '        | '
+        echo 'new     | SHORTCUT: -> ds -p new PATH [REPOSITORY]'
+        echo '        |'
         echo 'up      | SHORTCUT: -> ds -v wake'
         echo '        | Wakes up halted, suspended Vagrant box.'
         echo ''
