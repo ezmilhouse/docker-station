@@ -1,0 +1,15 @@
+node:
+    build: ./docker/node/
+    volumes:
+        - ./project/:/opt/project/
+    ports:
+        - "2000:2000"
+nginx:
+    build: ./docker/nginx/
+    volumes:
+        - ./logs/:/var/www/
+        - ./project/:/var/www/
+    links:
+        - node
+    ports:
+        - "80:80"
